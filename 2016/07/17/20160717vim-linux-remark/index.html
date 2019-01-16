@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Vim快捷键备注 | Welcome to May's Blog</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">Welcome to May's Blog</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick=""><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Vim快捷键备注</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-17</div><div class="post-categories"><a class="post-category-link" href="/categories/Experience/">Experience</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/Linux/">Linux</a>/<a class="post-tag-link" href="/tags/Vim/">Vim</a></div></div></div><article><div class="container post"><p>一些Vim快捷键笔记</p>
+<blockquote>
+<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2></blockquote>
+<p>以下只是一些vim快捷键的备注。现在我在实习，然后在给自己的服务器配环境的时候深刻的体会到做笔记的重要性！一些命令记在自己的电脑上但是就是想不起来了！所以在博客上单独开出一篇文章来记录，不定期补充更新。</p>
+<p>我的用的vim是k-vim</p>
+<blockquote>
+<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2></blockquote>
+<h3 id="1、全文搜索"><a href="#1、全文搜索" class="headerlink" title="1、全文搜索"></a>1、全文搜索</h3><blockquote>
+<p>,s关键字</p>
+</blockquote>
+<p>用的是ack -i命令</p>
+<h3 id="2、创建新的文件"><a href="#2、创建新的文件" class="headerlink" title="2、创建新的文件"></a>2、创建新的文件</h3><blockquote>
+<p>:new 路径 文件名</p>
+</blockquote>
+<h3 id="3、选中tab内的内容（html之类的标签）"><a href="#3、选中tab内的内容（html之类的标签）" class="headerlink" title="3、选中tab内的内容（html之类的标签）"></a>3、选中tab内的内容（html之类的标签）</h3><blockquote>
+<p>vit</p>
+</blockquote>
+<h3 id="4、选中tab内的内容包括tab（html之类的标签）"><a href="#4、选中tab内的内容包括tab（html之类的标签）" class="headerlink" title="4、选中tab内的内容包括tab（html之类的标签）"></a>4、选中tab内的内容包括tab（html之类的标签）</h3><blockquote>
+<p>vat</p>
+</blockquote>
+<h3 id="5、进入行选中模式"><a href="#5、进入行选中模式" class="headerlink" title="5、进入行选中模式"></a>5、进入行选中模式</h3><blockquote>
+<p>shift v</p>
+</blockquote>
+<h3 id="6、进入列选中模式"><a href="#6、进入列选中模式" class="headerlink" title="6、进入列选中模式"></a>6、进入列选中模式</h3><blockquote>
+<p>ctrl v</p>
+</blockquote>
+<h3 id="7、查看系统剪切板内容"><a href="#7、查看系统剪切板内容" class="headerlink" title="7、查看系统剪切板内容"></a>7、查看系统剪切板内容</h3><blockquote>
+<p>ctrl ;</p>
+</blockquote>
+<p>这似乎是ubuntu特有的，反正mac上没有，由于vim默认的黏贴p黏贴的是寄存器里面的,所以系统剪切板里的内容获取比较繁琐</p>
+<h3 id="8、将内容复制到系统剪切板"><a href="#8、将内容复制到系统剪切板" class="headerlink" title="8、将内容复制到系统剪切板"></a>8、将内容复制到系统剪切板</h3><blockquote>
+<p>“ + y</p>
+</blockquote>
+<h3 id="9、查看寄存器内容"><a href="#9、查看寄存器内容" class="headerlink" title="9、查看寄存器内容"></a>9、查看寄存器内容</h3><blockquote>
+<p>:reg</p>
+</blockquote>
+<h3 id="10、快速选择小括号大括号"><a href="#10、快速选择小括号大括号" class="headerlink" title="10、快速选择小括号大括号"></a>10、快速选择小括号大括号</h3><blockquote>
+<p>%</p>
+</blockquote>
+<p>这个快捷键很有意思，首先它会选择在光标所在行的大括号和小括号，中括号就是不行……，选中大括号或者小括号之后，在按%，它会跳转到与之匹配的小括号与大括号，如果是visual模式下，会快速选择括号内的内容。所以无论是快速选择还是快速跳转，%都是非常有用的。</p>
+<h3 id="11、代码收缩"><a href="#11、代码收缩" class="headerlink" title="11、代码收缩"></a>11、代码收缩</h3><blockquote>
+<p>,zz</p>
+</blockquote>
+<p>这是在normal模式下的代码收缩</p>
+<h3 id="12、全文查找文件"><a href="#12、全文查找文件" class="headerlink" title="12、全文查找文件"></a>12、全文查找文件</h3><blockquote>
+<p>,p</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<h2 id="插件支持"><a href="#插件支持" class="headerlink" title="插件支持"></a>插件支持</h2></blockquote>
+<h3 id="1、查看原函数"><a href="#1、查看原函数" class="headerlink" title="1、查看原函数"></a>1、查看原函数</h3><ul>
+<li>首先在项目更目录下输入命令ctags -R (–exclude=”.js” –exclude=”test<em>“ –exclude=”Test</em>“) .<blockquote>
+<p>后面的exclude表示哪些文件不需要建立函数间关联</p>
+</blockquote>
+</li>
+<li>vim . 进入项目，执行:set tags=tags</li>
+<li>查看原函数代码用ctrl }, 退出则是ctrl o</li>
+</ul>
+<h3 id="2、快速给词加环绕符"><a href="#2、快速给词加环绕符" class="headerlink" title="2、快速给词加环绕符"></a>2、快速给词加环绕符</h3><ul>
+<li><p>改“为‘</p>
+<blockquote>
+<p>cs”‘</p>
+</blockquote>
+</li>
+<li><p>脱掉[</p>
+<blockquote>
+<p>ds[</p>
+</blockquote>
+</li>
+<li><p>新增{</p>
+<blockquote>
+<p>ysiw{</p>
+</blockquote>
+</li>
+<li><p>重复123操作<br>比如说你用ysiw{加了{，那么重复执行这个只需要.{</p>
+</li>
+</ul>
+<h3 id="3、标记"><a href="#3、标记" class="headerlink" title="3、标记"></a>3、标记</h3><p>标记只能24个字幕，可认度不高，所以一个文件少打点标记，用于快速定位到上回你改的哪里的代码，然后第二天上班回来接着定位改！</p>
+<p>例如标记为a</p>
+<ul>
+<li><p>打标记</p>
+<blockquote>
+<p>ma</p>
+</blockquote>
+</li>
+<li><p>取消标记</p>
+<blockquote>
+<p>ma</p>
+</blockquote>
+</li>
+<li><p>快速跳转到标记</p>
+<blockquote>
+<p>‘a    (推荐)</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4、脚本使用"><a href="#4、脚本使用" class="headerlink" title="4、脚本使用"></a>4、脚本使用</h3><ul>
+<li><p>录脚本</p>
+<blockquote>
+<p>qq</p>
+</blockquote>
+</li>
+<li><p>结束录制</p>
+<blockquote>
+<p>normal模式下q</p>
+</blockquote>
+</li>
+</ul>
+<p><br></p>
+<blockquote>
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2></blockquote>
+<p>今晚就写这么多……明早还要上班，php boss给了我台服务器随便折腾，嘿嘿～而且这服务器还是最原始的啥都没装，明天倒腾vim去</p>
+<p>整理到现在不得不感慨，vim不愧是编辑器之神，一个插件就能让我兴奋一晚上……</p>
+<p>The End~</p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2019 <a href="/" rel="nofollow">may</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

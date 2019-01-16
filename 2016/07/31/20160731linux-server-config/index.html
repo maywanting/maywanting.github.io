@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Linux 服务器配置 | Welcome to May's Blog</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">Welcome to May's Blog</a><span class="subtitle"></span><label id="toggle-menu" for="menu" onclick=""><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>Linux 服务器配置</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-07-31</div><div class="post-categories"><a class="post-category-link" href="/categories/Experience/">Experience</a></div><div class="post-tags"><a class="post-tag-link" href="/tags/Linux/">Linux</a></div></div></div><article><div class="container post"><p>前段时间主管给了我台服务器，感觉就是一个新鲜的肉包子等着我打理，嘿嘿嘿～</p>
+<p>所以记录下来整个配置的过程，之后可以写个一键脚本安装也是很方便的。</p>
+<blockquote>
+<h2 id="查看基础信息"><a href="#查看基础信息" class="headerlink" title="查看基础信息"></a>查看基础信息</h2></blockquote>
+<p>主管给我我root账号和ip地址，然后让我随便折腾吧，我等进去之后，第一件是就是查看这个服务器的基本信息，不然连啥类型的linux就开始动手，虽然我也不太清楚各种linux之间的细微区别，但是问题查资料的时候也很方便呢。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; uname -a</span><br><span class="line">&lt; Linux localhost.localdomain 2.6.32-642.1.1.el6.x86_64 <span class="comment">#1 SMP Tue May 31 21:57:07 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux</span></span><br></pre></td></tr></table></figure>
+<p>当然也可以查看服务器的版本文件来获取具体信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; cat /proc/version</span><br><span class="line">&lt; Linux version 2.6.32-642.1.1.el6.x86_64 (mockbuild@worker1.bsys.centos.org) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-17) (GCC) ) <span class="comment">#1 SMP Tue May 31 21:57:07 UTC 2016</span></span><br></pre></td></tr></table></figure>
+<p>嗯～看来是red hat，还是64位操作系统，内核还是2.6……，有点老……</p>
+<blockquote>
+<h2 id="新增用户"><a href="#新增用户" class="headerlink" title="新增用户"></a>新增用户</h2></blockquote>
+<p>登上服务器之后，然后创个属于自己的用户，这样别人登录的时候，不至于因为root打扰到别人，虽然我看了一下记录总共有八个其他的用户，但是最近一次其他用户登上来，也是6月二十几号的事，看了一下安装的软件，啥都没有，这服务器看来真的没有人玩啊。</p>
+<p>首先创建用户may</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser may</span><br></pre></td></tr></table></figure>
+<p>其次是密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd *</span><br></pre></td></tr></table></figure>
+<p>嘿嘿～我的密码怎么可能贴出来。不过在设密码的时候，发现它会检查密码的长度以及是否回文。不过后来在我的强制重试三次，设了密码，此密码超级短，还是回文，看来这个提示也只是看看。</p>
+<blockquote>
+<h2 id="将-may-加入-root-组"><a href="#将-may-加入-root-组" class="headerlink" title="将 may 加入 root 组"></a>将 may 加入 root 组</h2></blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -g root May</span><br></pre></td></tr></table></figure>
+<p>这样就可以把 may 这个用户加入到 root 组了，不过还可以设置sudo不用输入密码，这在之后的文章再介绍吧。</p>
+<blockquote>
+<h2 id="更改bash"><a href="#更改bash" class="headerlink" title="更改bash"></a>更改bash</h2></blockquote>
+<p>进入服务器的时候，bash则是最常用的 bash bash，不过我用的最舒服的还是 oh-my-zsh，所以肯定要改。</p>
+<p>oh-my-zsh 是基于 zsh 的，所以首先装 zsh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install zsh</span><br></pre></td></tr></table></figure>
+<p>然后装 oh-my-zsh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<p>接下来我不太喜欢拘泥于一种主题，所以设为随机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">vim .zshrc</span><br><span class="line"></span><br><span class="line">ZSH_THEME=<span class="string">"random"</span></span><br></pre></td></tr></table></figure>
+<p>然后就是给 oh-my-zsh 安装插件，我常用的插件就以下三个</p>
+<ul>
+<li>colored-man-pages man出来的文档会有颜色标注，这样找命令还是很方便的</li>
+<li>sudo 这个插件是当一个命令需要 sudo 时，按两下 <code>Esc</code> 键，会在开头自动补上 sudo，不需要移动光标，还是很便利的</li>
+<li>zsh-syntax-highlighting 这个插件会用颜色提示你命令是否存在，红色表示不存在，绿色表示存在，下划线则表示这个目录存在，在命令提示上还是很便利的。</li>
+</ul>
+<p>由于zsh-syntax-highlighting这个插件不是oh-my-zsh自带插件，得去github上下载。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.oh-my-zsh/plugins/</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git</span><br><span class="line"></span><br><span class="line">vim ~/.zshrc</span><br><span class="line"></span><br><span class="line">plugins=(git colored-man-pages sudo zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="安装k-vim"><a href="#安装k-vim" class="headerlink" title="安装k-vim"></a>安装k-vim</h2></blockquote>
+<p>vim是我最主要的编程工具，所以肯定得装这个</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/MikeCoder/k-vim.git</span><br></pre></td></tr></table></figure>
+<p>下载完之后进入目录，<code>source install.sh</code>，然后可以去泡杯咖啡了。</p>
+<blockquote>
+<h2 id="更改Esc键位与Caps-Lock键位"><a href="#更改Esc键位与Caps-Lock键位" class="headerlink" title="更改Esc键位与Caps Lock键位"></a>更改<code>Esc</code>键位与<code>Caps Lock</code>键位</h2></blockquote>
+<p>为啥要改这两个呢，首先<code>Caps Lock</code>这个键就是大小写锁定，用的不多，而且一般大写我都习惯用<code>Shift</code>加字母来。其次，由于是vim党，所以频繁使用<code>Esc</code>键，手够不到，不方便，然后就把这两个键改了。</p>
+<p>主要用<code>xmodmap</code>这个命令进行改键位。首先创个文件，比如我这里起名<code>.keymaps</code>，然后编辑</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">!</span><br><span class="line">!Swap Caps_Lock and Escape</span><br><span class="line">!</span><br><span class="line">remove Lock = Caps_Lock</span><br><span class="line">keysym Escape = Caps_Lock</span><br><span class="line">keysym Caps_Lock = Escape</span><br><span class="line">add Lock = Caps_Lock</span><br></pre></td></tr></table></figure>
+<p>然后 <code>xmodmap .keymaps</code>键位就交换了。由于这个键位再重启了计算机之后就会复原，所以建议加入开机启动计划。</p>
+<blockquote>
+<h2 id="将密码登录改成公钥登录"><a href="#将密码登录改成公钥登录" class="headerlink" title="将密码登录改成公钥登录"></a>将密码登录改成公钥登录</h2></blockquote>
+<p>每次 ssh 到服务器然后输入密码很是麻烦，所以采用公钥认证登录，这样就不需要输入密码了。</p>
+<p>首先在本地生成密钥对</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -P <span class="string">""</span></span><br></pre></td></tr></table></figure>
+<p>然后进入.ssh目录里面，里面应该有三个文件<code>id_rsa</code>, <code>id_rsa.pub</code>, <code>known_hosts</code>。这里面<code>id_rsa</code>为私钥，而<code>id_rsa.pub</code>为公钥，然后将公钥复制到服务器上，并将公钥的内容添加到<code>~/.ssh/authorized_keys</code>文件中，没有这个文件就创个。</p>
+<p>如果这个服务器就你一个人用的话，建议弄成不允许密码登录，这样可以防止别人暴力破解你的服务器密码</p>
+<p>在服务器的<code>/etc/ssh/sshd_config</code>的文件中，改成如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#PasswordAuthentication yes</span></span><br><span class="line"></span><br><span class="line">改为</span><br><span class="line"></span><br><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2></blockquote>
+<p>初步的部署就是这样，反正每当给我一个服务器，我基本都要干这些，记录下来免得自己找东找西找命令。哈哈～</p>
+<p>The End~</p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2019 <a href="/" rel="nofollow">may</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>
