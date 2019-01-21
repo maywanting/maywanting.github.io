@@ -12,7 +12,19 @@
 <p>端口开放好之后，进行登入系统验证，结果登录正常，然而却无法写入数据库数据，报mysql_stmt_execute这个函数的相关错，说实话没见过，然后查了mysql的官当文档说这个函数在mysql5.1.25以上有用，看了一下线上mysql的版本，5.0.95………………气的吐血。不过后来问清楚原因才知道数据库那边用了altas这个玩意儿做了个数据库负载均衡，然后负责均衡的那个数据库版本5.0.95……，而真正存数据的数据库则是5.7版本，所以主管请求直接连数据库。</p>
 <p>总之项目终于成功部署了，虽然还是有坑，简直一把辛酸泪。</p>
 <p>The End~</p>
-</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2019 <a href="/" rel="nofollow">may</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+</div><!-- comment system--><div class="container"><hr><div id="disqus_thread"></div><script type="text/javascript">
+var disqus_shortname = 'maywanting';
+var disqus_identifier = '2016/08/20/20160820project-deploy/';
+var disqus_title = '记一次项目的开发到部署';
+var disqus_url = 'http://maywanting.wang/2016/08/20/20160820project-deploy/';
+(function() {
+   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">Blog comments powered by <span class="logo-disqus">Disqus</span></a></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="mailto:may@maywanting.wang" target="_blank"><i class="fa fa-envelope-o"></i></a><a href="http://weibo.com/[object Object]" target="_blank"><i class="fa fa-weibo"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2019 <a href="/" rel="nofollow">may</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
     $(".fancybox").fancybox();
 });
 </script></body></html>
